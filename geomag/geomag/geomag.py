@@ -20,10 +20,10 @@ from datetime import date
 
 class GeoMag:
 
-    def GeoMag(self, dlat, dlon, h=0, time=date.today()): # latitude (decimal degrees), longitude (decimal degrees), altitude (feet), date
+    def GeoMag(self, dlat, dlon, h=0, time=date.today()): # latitude (decimal degrees), longitude (decimal degrees), altitude (km), date
         #time = date('Y') + date('z')/365
         time = time.year+((time - date(time.year,1,1)).days/365.0)
-        alt = h/3280.8399
+        alt = h
 
         otime = oalt = olat = olon = -1000.0
 
