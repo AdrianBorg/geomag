@@ -10,7 +10,10 @@ Suggestions for improvements are appreciated.
 USAGE:
 >>> import geomag
 >>> geomag.declination(80,0)
--3.382344140520556
+-6.1335150785195536
+
+extra module added in order to extract magnetic field vector
+USAGE same as declenation but outputs magnetic field vector
 """
 
 from . import geomag
@@ -21,8 +24,8 @@ def declination(*args, **kargs):
     """Calculate magnetic declination in degrees
     dlat = latitude in degrees
     dlon = longitude in degrees
-    h = altitude in feet, default=0
-    time = date for computing declination, default=today
+    h = altitude in km, default=0
+    calc_date = date for computing declination, default=today
     """
     mag = __singleton__.GeoMag(*args, **kargs)
     return mag.dec
@@ -34,3 +37,13 @@ def mag_heading(hdg, *args, **kargs):
     """
     dec = declination(*args, **kargs)
     return (hdg - dec + 360.0) % 360
+
+
+def mag_vec(*args, **kargs):
+    """Calculates the magnetic field vector
+    :param args: latitude, longitude (in deg)
+    :param kargs: altitude in km, date (same as declenation)
+    :return: vector components in a list (North component, East Component, Vertical Component) in nano Tesla
+    """
+    mag = __singleton__.GeoMag(*args, **kargs)
+    return [mag.bx, mag.by, mag.bz]
